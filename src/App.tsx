@@ -6,19 +6,57 @@ import { BUTTON_HEIGHT, SCREEN_HEIGHT } from './utils/dimensions';
 import { BUTTON_VALUES } from './utils/values';
 
 function App() {
-  const [value, _] = useState(0);
+  const [displayValue, setDisplayValue] = useState('0');
+
+  const handlePress = (value: string | number) => {
+    if (typeof value === 'number') {
+      setDisplayValue(prev => `${prev}${value}`);
+    }
+
+    if (typeof value === 'string') {
+      switch (value) {
+        case '+':
+          console.warn('soma');
+          break;
+        case '-':
+          console.warn('subtrai');
+          break;
+        case 'X':
+          console.warn('multiplica');
+          break;
+        case '/':
+          console.warn('divide');
+          break;
+        case '=':
+          console.warn('resultado');
+          break;
+
+        case 'C':
+          setDisplayValue('0');
+          break;
+
+        default:
+          break;
+      }
+    }
+    return false;
+  };
 
   return (
     <SafeAreaView style={styles.safe}>
       <Container>
         <View style={styles.display}>
-          <Text style={styles.displayText}>{value}</Text>
+          <Text style={styles.displayText}>{displayValue}</Text>
         </View>
         <View style={styles.buttonContainer}>
           {BUTTON_VALUES.map((row, key) => (
             <View style={styles.buttonRow} key={key}>
               {row.map(rowValue => (
-                <Button value={rowValue} key={rowValue} />
+                <Button
+                  value={rowValue}
+                  key={rowValue}
+                  onPress={() => handlePress(rowValue)}
+                />
               ))}
             </View>
           ))}
