@@ -3,6 +3,7 @@ import { Button } from './components/Button';
 import { Container } from './components/Container';
 import { useState } from 'react';
 import { BUTTON_HEIGHT, SCREEN_HEIGHT } from './utils/dimensions';
+import { BUTTON_VALUES } from './utils/values';
 
 function App() {
   const [value, _] = useState(0);
@@ -14,26 +15,13 @@ function App() {
           <Text style={styles.displayText}>{value}</Text>
         </View>
         <View style={styles.buttonContainer}>
-          <View style={styles.buttonRow}>
-            {[7, 8, 9, '+'].map(rowValue => (
-              <Button value={rowValue} key={rowValue} />
-            ))}
-          </View>
-          <View style={styles.buttonRow}>
-            {[4, 5, 6, '-'].map(rowValue => (
-              <Button value={rowValue} key={rowValue} />
-            ))}
-          </View>
-          <View style={styles.buttonRow}>
-            {[1, 2, 3, 'X'].map(rowValue => (
-              <Button value={rowValue} key={rowValue} />
-            ))}
-          </View>
-          <View style={styles.buttonRow}>
-            {['C', 0, '=', '/'].map(rowValue => (
-              <Button value={rowValue} key={rowValue} />
-            ))}
-          </View>
+          {BUTTON_VALUES.map((row, key) => (
+            <View style={styles.buttonRow} key={key}>
+              {row.map(rowValue => (
+                <Button value={rowValue} key={rowValue} />
+              ))}
+            </View>
+          ))}
         </View>
       </Container>
       <StatusBar barStyle={'light-content'} />
